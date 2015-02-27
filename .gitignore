@@ -1,0 +1,12 @@
+Debug/
+include/
+Windows/
+*.exe
+*.ilk
+*.pdb
+*.sdf
+*.sln
+*.suo
+*.vcxproj
+*.filters
+*.dll
