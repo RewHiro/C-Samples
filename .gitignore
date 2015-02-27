@@ -10,3 +10,4 @@ Windows/
 *.vcxproj
 *.filters
 *.dll
+lib/
