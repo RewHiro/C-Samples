@@ -67,10 +67,12 @@ int main() {
 	  void Bounce(){
 		  if(pos.x() - radius.x() < -WIDTH / 2 || 
 			  pos.x() + radius.x() > WIDTH / 2){
+			  pos.x() += -speed.x();
 			  speed.x() *= -1;
 		  }
 		  if(pos.y() - radius.y() < -HEIGHT / 2 || 
 			  pos.y() + radius.y() > HEIGHT / 2){
+			  pos.y() += -speed.y();
 			  speed.y() *= -1;
 		  }
 	  }
