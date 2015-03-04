@@ -63,14 +63,16 @@ private:
 
 	//　壁に当たったら跳ね返す
 	void Bounce(){
-		if (pos.x() - radius.x() < -WIDTH * 0.5f ||
-			pos.x() + radius.x() > WIDTH * 0.5f){
-			pos.x() += -speed.x();
+		if (pos.x() - radius.x() < -WIDTH*0.5f ||
+			pos.x() + radius.x() > WIDTH*0.5f){
+			pos.x() = std::max(pos.x(), -WIDTH * 0.5f + radius.x());
+			pos.x() = std::min(pos.x(), WIDTH * 0.5f - radius.x());
 			speed.x() *= -1;
 		}
-		if (pos.y() - radius.y() < -HEIGHT * 0.5f ||
-			pos.y() + radius.y() > HEIGHT * 0.5f){
-			pos.y() += -speed.y();
+		if (pos.y() - radius.y() < -HEIGHT*0.5f ||
+			pos.y() + radius.y() > HEIGHT*0.5f){
+			pos.y() = std::max(pos.y(), -HEIGHT * 0.5f + radius.y());
+			pos.y() = std::min(pos.y(), HEIGHT * 0.5f - radius.y());
 			speed.y() *= -1;
 		}
 	}
