@@ -18,6 +18,24 @@ enum Window {
 //　重力の大きさ
 const float GRAVITY_POWER = 1.0f;
 
+
+//　xが最小値より下だった場合、最小値を返し、
+//　xが最大値より上だった場合、最大値を返し、
+//　それ以外だったらxを返す。
+//
+//　x：クランプする値
+//　min：最小値
+//　max：最大値
+template<typename T>
+T Clamp(
+	const T& x,
+	const T& min,
+	const T& max
+	)
+{
+	return std::min(std::max(x, min), max);
+}
+
 // 
 // メインプログラム
 // 
@@ -68,14 +86,12 @@ int main() {
 	  void Bounce(){
 		  if(pos.x() - radius.x() < -WIDTH*0.5f || 
 			  pos.x() + radius.x() > WIDTH*0.5f){
-			  pos.x() = std::max(pos.x(), -WIDTH * 0.5f + radius.x());
-			  pos.x() = std::min(pos.x(), WIDTH * 0.5f - radius.x());
+			  pos.x() = Clamp(pos.x(), -WIDTH * 0.5f + radius.x(), WIDTH * 0.5f - radius.x());
 			  speed.x() *= -1;
 		  }
 		  if (pos.y() - radius.y() < -HEIGHT*0.5f ||
 			  pos.y() + radius.y() > HEIGHT*0.5f){
-			  pos.y() = std::max(pos.y(), -HEIGHT * 0.5f + radius.y());
-			  pos.y() = std::min(pos.y(), HEIGHT * 0.5f - radius.y());
+			  pos.y() = Clamp(pos.y(), -HEIGHT * 0.5f + radius.y(), HEIGHT * 0.5f - radius.y());
 			  speed.y() *= -1;
 		  }
 	  }
