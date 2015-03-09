@@ -1,7 +1,16 @@
 #pragma once
 #include "lib\vector.hpp"
 #include "Window.h"
+#include "Object.h"
+#include <memory>
+#include <iostream>
 class Camera{
+
+	enum class State{
+		FOLLOWING,
+		SWITCHING,
+	};
+	State state = State::FOLLOWING;
 	Vec2f pos = test;
 	Vec2f size = Vec2f(Window::WIDTH * 0.5f, Window::HEIGHT / 0.5f);
 	Vec2f look_at_pos;
@@ -11,36 +20,47 @@ class Camera{
 	const Vec2f INFIMUM = Vec2f(Window::WIDTH * 0.5f, Window::HEIGHT * 0.5f);
 	const Vec2f SUPREMUM = Vec2f(1024 - Window::WIDTH*0.5f, 512 - Window::HEIGHT * 0.5f);
 
-	const Vec2f o = Vec2f(400, -HEIGHT / 2 + 100);
-	const Vec2f i = Vec2f(200, -HEIGHT / 2 + 50);
+	const Vec2f o = Vec2f(400, 300);
+	const Vec2f i = Vec2f(200, 100);
+
+	std::weak_ptr<Object>look_at_object;
+	int count = 0;
 
 public:
 
+	void Set(){
+		state = State::SWITCHING;
+	}
 	Camera() = default;
 
 	void Update(){
-		//Vec2f delta = (look_at_pos + Vec2f(64,64)) - (pos);
-		Vec2f delta = (look_at_pos)-(pos - test);
+		if(state == State::FOLLOWING){
+			Vec2f delta = (look_at_object.lock()->Position())-(pos - test);
 
-		//pos += 0.1f * delta;
+			DOUT << pos << std::endl;
 
-		DOUT << delta << std::endl;
-
-		if (delta.x() > o.x()){
-			pos.x() += 0.01f * delta.x();
-			//DOUT << delta << std::endl;
+			if (delta.x() > o.x()){
+				pos.x() += 0.01f * delta.x();
+			}
+			else if (delta.x() < i.x()){
+				pos.x() += -0.01f * (delta.x() + 250.0f);
+			}
+			if(delta.y() > o.y()){
+				pos.y() += 0.01f * delta.y();
+			}
+			else if(delta.y() < i.y()){
+				pos.y() -= 0.01f * (delta.y() + 250.0f);
+			}
 		}
-		else if (delta.x() < i.x()){
-			pos.x() += -0.01f * (delta.x() + 250.0f);
-			//DOUT << delta << std::endl;
+		else {
+			count++;
+			Vec2f delta = (look_at_object.lock()->Position()) - pos;
+			pos += delta * 0.1f;
+			if(count > 30){
+				state = State::FOLLOWING;
+				count = 0;
+			}
 		}
-
-		//if(delta.y() > o.y()){
-		//	pos.y() += 0.1f * (look_at_pos.y() - pos.y());
-		//}
-		//else if(delta.y() < i.y()){
-		//	pos.y() += 0.1f * (look_at_pos.y() - pos.y());
-		//}
 
 
 		pos.x() = std::max(pos.x(), INFIMUM.x());
@@ -49,8 +69,8 @@ public:
 		pos.y() = std::min(pos.y(), SUPREMUM.y());
 	}
 
-	void LookAt(const Vec2f& look_at){
-		look_at_pos = look_at;
+	void LookAt(std::weak_ptr<Object>object){
+		look_at_object = object;
 	}
 
 	//　ポジションを取得

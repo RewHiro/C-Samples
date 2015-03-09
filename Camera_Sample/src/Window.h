@@ -1,5 +1,6 @@
 #pragma once
 #include "lib\vector.hpp"
+#include "lib\defines.hpp"
 
 // アプリのウインドウサイズ
 enum Window {
