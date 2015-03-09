@@ -1,12 +1,17 @@
 #pragma once
 #include "Object.h"
+#include "Camera.h"
+#include "BackGround.h"
 #include <string>
 class Character : public Object{
 	const Vec2f SPEED_VALUE = Vec2f(5.0f, 5.0f);
 	const Texture& texture;
 	AppEnv& app_env;
 	const Vec2f INFIMUM = Vec2f(0.0f, 0.0f);
-	const Vec2f SUPREMUM = Vec2f(1024-128, 512-128);
+	const Vec2f SUPREMUM = Vec2f(
+		static_cast<float>(BackGround::SIZE::WIDTH) - texture.width(), 
+		static_cast<float>(BackGround::SIZE::HEIGHT) - texture.height()
+		);
 	Camera& camera;
 
 public:
@@ -38,6 +43,8 @@ public:
 	}
 
 private:
+
+	//Å@à⁄ìÆèàóù
 	void Move(){
 		if (app_env.isPressKey(GLFW_KEY_UP)){
 			pos.y() += SPEED_VALUE.y();
@@ -57,6 +64,7 @@ private:
 		}
 	}
 
+	//Å@å¿äEÉâÉCÉì
 	void LimitLine(){
 		pos.x() = std::max(pos.x(), INFIMUM.x());
 		pos.x() = std::min(pos.x(), SUPREMUM.x());

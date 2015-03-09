@@ -2,7 +2,6 @@
 // アプリ雛形
 //
 
-#include "lib/defines.hpp"
 #include "lib/appEnv.hpp"
 #include "Camera.h"
 #include "Character.h"
@@ -13,6 +12,7 @@
 // 
 // メインプログラム
 // 
+
 int main() {
 	// アプリウインドウの準備
 	AppEnv app_env(Window::WIDTH, Window::HEIGHT,
@@ -44,10 +44,15 @@ int main() {
 		camera
 		);
 
-	std::shared_ptr<Object>background = std::make_shared<BackGround>(Vec2f(0, 0), BG_TEXTURE, camera);
+	std::shared_ptr<Object>background = 
+		std::make_shared<BackGround>(
+		Vec2f(0, 0), 
+		BG_TEXTURE, 
+		camera
+		);
 
+	//　Ojectの箱を作る
 	std::shared_ptr<Object>object_box = player;
-	bool isObject = true;
 
 	player->Name() = "player";
 	enemy->Name() = "enemy";
@@ -58,9 +63,10 @@ int main() {
 	camera.LookAt(player);
 	while (app_env.isOpen()) {
 
-		if(app_env.isPushKey('A')){
-			camera.Set();
-			if(object_box->Name() == "player"){
+		//　カメラの切り替え
+		if (app_env.isPushKey('A')){
+			camera.TurnSwitch();
+			if (object_box->Name() == "player"){
 				object_box = enemy;
 				camera.LookAt(enemy);
 			}
@@ -71,22 +77,22 @@ int main() {
 
 		}
 
+		//　計算処理更新
 		camera.Update();
 		background->Update();
-
 		object_box->Update();
 
 		// 描画準備
 		app_env.setupDraw();
 
 		background->Draw();
-	
 		player->Draw();
-
 		enemy->Draw();
 		meiryo.draw(switching_ui, Vec2f(-Window::WIDTH * 0.5f, HEIGHT * 0.5f - meiryo.drawSize(switching_ui).y()), Color(1, 0, 0));
+		
 		auto screen_pos = Vec2f(object_box->Position().x() + object_box->Size().x() * 0.4f, object_box->Position().y() + object_box->Size().y()) - camera.Position();
 		meiryo.draw(look_at_ui, screen_pos, Color(1, 0, 0));
+
 		// 画面更新
 		app_env.update();
 	}

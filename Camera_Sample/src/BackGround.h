@@ -1,20 +1,26 @@
 #pragma once
 #include "Object.h"
+#include "Camera.h"
+
+//Å@îwåi
 class BackGround : public Object{
 	const Texture& texture;
 	Camera& camera;
 public:
+
+	enum class SIZE{
+		WIDTH = 1024,
+		HEIGHT = 512
+	};
+
 	BackGround(
 		const Vec2f& pos,
 		const Texture& texture,
 		Camera& camera):
-		Object(pos,Vec2f(0,0)),
+		Object(pos,Vec2f(1024,512)),
 		texture(texture),
 		camera(camera)
 	{}
-
-	void Update(){
-	}
 
 	void Draw()final{
 		auto screen_pos = pos - camera.Position();
