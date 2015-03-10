@@ -10,10 +10,40 @@
 
 // アプリのウインドウサイズ
 enum Window {
-  WIDTH  = 512,
-  HEIGHT = 512
+  WIDTH  = 1024,
+  HEIGHT = 680
 };
 
+
+
+class Rect{
+	Vec2f pos;
+	Vec2f size;
+	Color color;
+	Easing<Vec2f>& easing;
+public:
+	Rect(
+		const Vec2f& pos,
+		const Vec2f& size,
+		const Color& color,
+		Easing<Vec2f>& easing) :
+		pos(pos),
+		size(size),
+		color(color),
+		easing(easing)
+	{
+	}
+	void Update(){
+		pos = easing(Vec2f(-460,180), Vec2f(0, 125), 1.0f);
+	}
+
+	void Draw(){
+		drawFillBox(pos.x(), pos.y(), 
+			size.x(), size.y(), 
+			color,
+			0.0f,Vec2f(1,1),Vec2f(size.x() *.5f,size.y() *.5f));
+	}
+};
 
 // 
 // メインプログラム
@@ -23,21 +53,17 @@ int main() {
   AppEnv app_env(Window::WIDTH, Window::HEIGHT,
                  false, true);
 
-  Easing<float>test(EaseType::INOUT_BOUNCE);
-  auto a = .5f;
+  Easing<Vec2f>easing(EaseType::OUT_BACK);
+  Rect rect = Rect(Vec2f(-460,180), Vec2f(200, 50), Color(1, 0, 0), easing);
 
-  auto time = 0;
-  auto x = 0.0f;
   while (app_env.isOpen()) {
 
-	x = test(100,-200,3.0f,1.0f);
-	  //x = test.MoveTo(100, 100, 4.0f);
+	  rect.Update();
 
-
-	  DOUT << x << std::endl;
     // 描画準備
     app_env.setupDraw();
 
+	rect.Draw();
     
     // 画面更新
     app_env.update();
