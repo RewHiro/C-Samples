@@ -20,21 +20,20 @@ class Rect{
 	Vec2f pos;
 	Vec2f size;
 	Color color;
-	Easing<Vec2f>& easing;
+	Easing<Vec2f> easing;
 public:
 	Rect(
 		const Vec2f& pos,
 		const Vec2f& size,
-		const Color& color,
-		Easing<Vec2f>& easing) :
+		const Color& color) :
 		pos(pos),
 		size(size),
 		color(color),
-		easing(easing)
+		easing(Easing<Vec2f>(pos,EaseType::OUT_BACK))
 	{
 	}
 	void Update(){
-		pos = easing(Vec2f(-460,180), Vec2f(0, 125), 1.0f);
+		pos = easing(Vec2f(0, 125), 1.0f);
 	}
 
 	void Draw(){
@@ -53,8 +52,7 @@ int main() {
   AppEnv app_env(Window::WIDTH, Window::HEIGHT,
                  false, true);
 
-  Easing<Vec2f>easing(EaseType::OUT_BACK);
-  Rect rect = Rect(Vec2f(-460,180), Vec2f(200, 50), Color(1, 0, 0), easing);
+  Rect rect = Rect(Vec2f(-460,180), Vec2f(200, 50), Color(1, 0, 0));
 
   while (app_env.isOpen()) {
 

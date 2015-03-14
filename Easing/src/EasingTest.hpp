@@ -79,7 +79,7 @@ class Easing{
 	using ease_func = std::function < T(float, const T&, const T&, const float) > ;
 	ease_func ease_update;
 	float current_time = 0.0f;
-	T save;
+	T pos;
 
 	//　typeに対応した計算関数を返す
 	ease_func CreateEase(const EaseType type){
@@ -355,14 +355,51 @@ class Easing{
 	}
 
 public:
-	explicit Easing(const EaseType type)
+	//　start_pos：開始値
+	//　type：イージングタイプ
+	Easing(const T& start_pos,const EaseType type):
+		current_time(0),
+		pos(start_pos)
 	{
 		SetEaseType(type);
 	}
+	
+	Easing() = default;
 
+	//　start_pos：開始値
+	void Set(const T& start_pos){
+		current_time = 0;
+		pos = start_pos;
+	}
+
+	//　start_pos：開始値
+	//　type：イージングタイプ
+	void Set(const T& start_pos,const EaseType type){
+		current_time = 0;
+		pos = start_pos;
+		SetEaseType(type);
+	}
+
+	//　イージングタイプを設定
 	void SetEaseType(const EaseType type){
 		current_time = 0;
 		ease_update = CreateEase(type);
+	}
+
+	//　target_value：目的値
+	//　d：継続時間
+	//　delay：遅らせる時間
+	T operator()(const T& target_value, const float d, const float delay = 0.0f){
+		current_time += 1.0f / 60.0f;
+
+		//　目的地に着いたらずっとそこにいる
+		if (current_time > d + delay)return ease_update(d, pos, target_value - pos, d);
+
+		//　遅らせるまで最初の位置のまま
+		if (current_time < delay)return ease_update(0, pos, target_value - pos, d);
+
+		//　イージング開始
+		return ease_update(current_time - delay, pos, target_value - pos, d);
 	}
 
 	// b 開始値
@@ -380,22 +417,6 @@ public:
 
 		//　イージング開始
 		return ease_update(current_time - delay, b, target_value - b, d);
-	}
-
-	// b 開始値
-	// c 変位量
-	// t 持続時間
-	// delay 遅らせる時間
-	T MoveTo(const T& b, const T& c, const float d, const float delay = 0.0f){
-		current_time += 1.0f / 60.0f;
-		//　目的地に着いたらずっとそこにいる
-		if (current_time > d + delay)return ease_update(d, b, c, d);
-
-		//　遅らせるまで最初の位置のまま
-		if (current_time < delay)return ease_update(0, b, c, d);
-
-		//　イージング開始
-		return ease_update(current_time - delay, b, c, d);
 	}
 
 };
