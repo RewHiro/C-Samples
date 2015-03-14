@@ -11,3 +11,4 @@ Windows/
 *.filters
 *.dll
 lib/
+*.opensdf
