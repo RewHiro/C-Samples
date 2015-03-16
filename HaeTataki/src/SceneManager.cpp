@@ -7,7 +7,7 @@
 
 SceneManager::SceneManager(AppEnv& app_env, const SceneType type) :
 app_env(app_env),
-scene(std::make_shared<Title>(app_env)),
+scene(Create(type)),
 scene_type(type)
 {
 

@@ -10,6 +10,7 @@ Scene(app_env)
 	LoadScene(SceneType::TITLE);
 	title_se.play();
 	object_list.emplace("ClickToStart", std::make_shared<ClickToStart>(is_transition));
+	objects.emplace_back(object_list.find("ClickToStart")->second);
 }
 
 SceneType Title::Update(){

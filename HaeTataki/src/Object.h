@@ -1,6 +1,13 @@
 #pragma once
 #include "lib\vector.hpp"
 #include "lib\graph.hpp"
+
+enum class ObjectType{
+	Player,
+	Enemy,
+	UI,
+};
+
 class Object
 {
 protected:
@@ -18,5 +25,9 @@ public:
 
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
+
+	Vec2f Positon()const{
+		return pos;
+	}
 };
 
