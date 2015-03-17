@@ -6,8 +6,8 @@
 class Game :
 	public Scene
 {
+	ObjectInfo object_info;
 	std::vector<std::shared_ptr<Object>>objects;
-	std::unordered_multimap<std::string, std::shared_ptr<Object>>object_list;
 	const Texture bg_texture = Texture("res/game_bg.png");
 	int count_time;
 public:

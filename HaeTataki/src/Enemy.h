@@ -1,18 +1,32 @@
 #pragma once
 #include "Object.h"
-#include "lib\random.hpp"
 #include <vector>
+#include <array>
+#include "lib\random.hpp"
+#include "lib\appEnv.hpp"
 class Enemy :
 	public Object
 {
-	std::weak_ptr<Object> col_pos;
+	enum class State{
+		HIT,
+		NORMAL
+	};
+	State state = State::NORMAL;
 	Random random;
 	std::vector<Texture>textures;
 	Texture texture;
+	AppEnv& app_env;
+	std::array<Vec2f,9>effect_offset;
+	int effect_count = 0;
 public:
-	Enemy(std::weak_ptr<Object> col_pos);
+	Enemy(AppEnv& app_env,ObjectInfo& object_info);
 
 	void Update();
 	void Draw();
+
+private:
+	void NormalDraw();
+	void EffectDraw();
+	void Reset();
 };
 

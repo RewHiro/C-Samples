@@ -1,5 +1,6 @@
 #pragma once
 #include "lib\appEnv.hpp"
+#include "Object.h"
 
 enum class SceneType{
 	TITLE,

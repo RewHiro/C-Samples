@@ -10,7 +10,7 @@ class Player :
 	Texture texture;
 	std::vector<Texture> textures;
 public:
-	Player(AppEnv& app_env);
+	Player(AppEnv& app_env,ObjectInfo& object_info);
 	void Update();
 	void Draw();
 };

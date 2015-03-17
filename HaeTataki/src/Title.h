@@ -7,8 +7,8 @@
 class Title :
 	public Scene
 {
+	ObjectInfo object_info;
 	std::vector<std::shared_ptr<Object>>objects;
-	std::multimap<std::string, std::shared_ptr<Object>>object_list;
 	const Texture bg = Texture("res/title_bg.png");
 	const Texture title_texture = Texture("res/logo.png");
 	const Media title_se = Media("res/title.wav");

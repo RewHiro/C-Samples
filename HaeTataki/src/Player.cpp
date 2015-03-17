@@ -1,8 +1,8 @@
 #include "Player.h"
 
 
-Player::Player(AppEnv& app_env) :
-Object(Vec2f(0,0),Vec2f(256,256),Color(1,1,1)),
+Player::Player(AppEnv& app_env, ObjectInfo& object_info) :
+Object(Vec2f(0,0),Vec2f(256,256),Color(1,1,1),object_info),
 app_env(app_env)
 {
 	textures.emplace_back(Texture("res/haetataki_1.png"));

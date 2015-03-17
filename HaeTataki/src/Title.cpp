@@ -9,13 +9,14 @@ Scene(app_env)
 {
 	LoadScene(SceneType::TITLE);
 	title_se.play();
-	object_list.emplace("ClickToStart", std::make_shared<ClickToStart>(is_transition));
-	objects.emplace_back(object_list.find("ClickToStart")->second);
+
+	objects.emplace_back(std::make_shared<ClickToStart>(is_transition,object_info));
+	object_info.Add("ClickToStart", objects.at(0));
 }
 
 SceneType Title::Update(){
-	for(auto& object : object_list){
-		object.second->Update();
+	for (auto& object : objects){
+		object->Update();
 	}
 
 	TransitionCondition();
@@ -31,8 +32,8 @@ void Title::Draw(){
 		bg, Color(1, 1, 1));
 
 
-	for (auto& object : object_list){
-		object.second->Draw();
+	for (auto& object : objects){
+		object->Draw();
 	}
 
 	//　タイトルのロゴ

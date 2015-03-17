@@ -1,8 +1,8 @@
 #include "UITime.h"
 #include "Game.h"
 #include <iostream>
-UITime::UITime(int& count_time):
-Object(Vec2f(0,224),Vec2f(256,48),Color(0,1,1)),
+UITime::UITime(int& count_time, ObjectInfo& object_info) :
+Object(Vec2f(0,224),Vec2f(256,48),Color(0,1,1),object_info),
 count_time(count_time)
 {
 }

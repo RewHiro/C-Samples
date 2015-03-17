@@ -10,7 +10,7 @@ class ClickToStart :
 	const float AMPLITUDE = 8.0f;
 	const bool& is_transition;
 public:
-	ClickToStart(const bool& is_transiton);
+	ClickToStart(const bool& is_transiton, ObjectInfo& object_info);
 
 	void Update();
 	void Draw();

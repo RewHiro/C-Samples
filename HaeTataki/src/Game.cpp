@@ -8,14 +8,13 @@ Scene(app_env),
 count_time(MaxTime())
 {
 	LoadScene(SceneType::GAME);
-	object_list.emplace("Player", std::make_shared<Player>(app_env));
-	object_list.emplace("UITime", std::make_shared<UITime>(count_time));
-	auto player = object_list.find("Player")->second;
-	object_list.emplace("Enemy", std::make_shared<Enemy>(player));
+	objects.emplace_back(std::make_shared<Enemy>(app_env, object_info));
+	objects.emplace_back(std::make_shared<UITime>(count_time, object_info));
+	objects.emplace_back(std::make_shared<Player>(app_env, object_info));
 
-	objects.emplace_back(object_list.find("UITime")->second);
-	objects.emplace_back(object_list.find("Enemy")->second);
-	objects.emplace_back(object_list.find("Player")->second);
+	object_info.Add("Enemy", objects.at(0));
+	object_info.Add("UITime", objects.at(1));
+	object_info.Add("Player", objects.at(2));
 }
 
 SceneType Game::Update(){
@@ -23,6 +22,9 @@ SceneType Game::Update(){
 
 	for (auto& object : objects){
 		object->Update();
+	}
+	if(count_time <= 0){
+		LoadScene(SceneType::RESULT);
 	}
 
 	return Type();

@@ -1,25 +1,23 @@
 #pragma once
 #include "lib\vector.hpp"
 #include "lib\graph.hpp"
+#include "ObjectInfo.h"
 
-enum class ObjectType{
-	Player,
-	Enemy,
-	UI,
-};
 
 class Object
 {
 protected:
+	ObjectInfo& object_info;
 	Vec2f pos;
 	Vec2f size;
 	Color color;
 public:
 	Object()= default;
-	Object(const Vec2f& pos, const Vec2f& size,const Color& color):
+	Object(const Vec2f& pos, const Vec2f& size,const Color& color,ObjectInfo& object_info):
 		pos(pos),
 		size(size),
-		color(color){}
+		color(color),
+		object_info(object_info){}
 
 	virtual ~Object() = default;
 

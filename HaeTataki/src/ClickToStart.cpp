@@ -3,8 +3,8 @@
 
 
 
-ClickToStart::ClickToStart(const bool& is_transiton):
-Object(Vec2f(0, START_POS), Vec2f(512, 128), Color(1, 1, 1)),
+ClickToStart::ClickToStart(const bool& is_transiton, ObjectInfo& object_info) :
+Object(Vec2f(0, START_POS), Vec2f(512, 128), Color(1, 1, 1),object_info),
 is_transition(is_transiton)
 {
 }
