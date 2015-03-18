@@ -18,6 +18,7 @@ class Enemy :
 	AppEnv& app_env;
 	std::array<Vec2f,9>effect_offset;
 	int effect_count = 0;
+	const Media hit_se = Media("res/hit.wav");
 public:
 	Enemy(AppEnv& app_env,ObjectInfo& object_info);
 

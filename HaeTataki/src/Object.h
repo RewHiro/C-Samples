@@ -10,6 +10,8 @@ protected:
 	ObjectInfo& object_info;
 	Vec2f pos;
 	Vec2f size;
+	Vec2f hit_pos;
+	Vec2f hit_size;
 	Color color;
 public:
 	Object()= default;

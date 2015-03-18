@@ -8,6 +8,9 @@ public:
 	~Result();
 
 	SceneType Update(){
+		if(app_env.isPushButton(Mouse::LEFT)){
+			LoadScene(SceneType::TITLE);
+		}
 		return Type();
 	}
 	void Draw(){
