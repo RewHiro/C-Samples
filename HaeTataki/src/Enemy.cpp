@@ -62,7 +62,7 @@ void Enemy::NormalDraw(){
 		texture, color,
 		.0f, Vec2f(1, 1), Vec2f(size.x()*.5f, size.y()*.5f));
 
-	drawBox(hit_pos.x(), hit_pos.y(), hit_size.x(), hit_size.y(), 5.0f, color);
+	//drawBox(hit_pos.x(), hit_pos.y(), hit_size.x(), hit_size.y(), 5.0f, color);
 }
 
 void Enemy::EffectDraw(){
