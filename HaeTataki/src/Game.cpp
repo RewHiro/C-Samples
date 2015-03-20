@@ -8,7 +8,7 @@ Scene(app_env),
 count_time(MaxTime())
 {
 	LoadScene(SceneType::GAME);
-	objects.emplace_back(std::make_shared<Enemy>(app_env, object_info));
+	objects.emplace_back(std::make_shared<Enemy>(app_env, object_info,point));
 	objects.emplace_back(std::make_shared<UITime>(count_time, object_info));
 	objects.emplace_back(std::make_shared<Player>(app_env, object_info));
 

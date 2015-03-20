@@ -10,6 +10,7 @@ class Game :
 	std::vector<std::shared_ptr<Object>>objects;
 	const Texture bg_texture = Texture("res/game_bg.png");
 	int count_time;
+	int point = 0;
 public:
 	Game(AppEnv&);
 

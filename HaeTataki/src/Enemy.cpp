@@ -3,9 +3,10 @@
 #include "Scene.h"
 #include "Collision.h"
 
-Enemy::Enemy(AppEnv& app_env,ObjectInfo& object_info) :
+Enemy::Enemy(AppEnv& app_env,ObjectInfo& object_info,int& point) :
 Object(Vec2f(0,0),Vec2f(256,256),Color(1,1,1),object_info),
-app_env(app_env)
+app_env(app_env),
+point(point)
 {
 	random.setSeed(std::random_device()());
 	pos = Vec2f(random.fromFirstToLast(-Window::WIDTH*.5f, Window::WIDTH*.5f),
@@ -39,6 +40,7 @@ void Enemy::Update(){
 			state = State::HIT;
 			texture = textures.at(1);
 			hit_se.play();
+			point++;
 			}
 		}
 	}
