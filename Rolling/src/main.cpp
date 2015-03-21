@@ -23,37 +23,25 @@ int main() {
   Color color(1, 1, 1);
 
   auto angle = .0f;
-  bool is_switch = false;
 
   while (env.isOpen()) {
 
-	  angle += M_1_PI*.1f;
-	  
+	  angle = std::fmodf(angle + M_1_PI*.1f, M_PI * 2);
+
 	  auto scalling = std::fabsf(std::sinf(angle));
 	  auto colorling = std::fabsf(std::sinf(angle));
 
-	  color.blue() = colorling*.5f +.5f;
-	  color.red() = colorling*.5f + .5f;
-	  color.green() = colorling*.5f + .5f;
+	  color.blue() = colorling*.6f +.4f;
+	  color.red() = colorling*.6f + .4f;
+	  color.green() = colorling*.6f + .4f;
 
-	  if (angle > M_PI){
-		  angle = .0f;
-		  is_switch = !is_switch;
-	  }
+	  auto cutting_y = angle < M_PI ? .0f : 270.0f;
 
 	  env.setupDraw();
-	  if(!is_switch){
 		  drawTextureBox(0, 0, 256, 256,
-			  0, 0, 256, 256,
+			  0, cutting_y, 256, 256,
 			  texture, color,
 			  .0f, Vec2f(scalling, 1), Vec2f(256 * .5f, 256 * .5f));
-	  }
-	  else{
-		drawTextureBox(0, 0, 256, 256,
-			0, 266, 256, 256,
-			texture, color,
-			.0f, Vec2f(scalling, 1), Vec2f(256 * .5f, 256 * .5f));
-	  }
 
 	  env.update();
   }
