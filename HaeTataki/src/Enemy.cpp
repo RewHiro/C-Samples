@@ -46,7 +46,7 @@ void Enemy::Update(){
 	}
 	if(state == State::HIT){
 		effect_count++;
-		if(effect_count == 30){
+		if(effect_count == 20){
 			Reset();
 		}
 	}

@@ -2,14 +2,14 @@
 
 
 ClickToTitle::ClickToTitle(ObjectInfo& object_info):
-Object(Vec2f(0,-96),Vec2f(512,128),Color(1,1,1),object_info)
+Object(Vec2f(0,-128),Vec2f(512,128),Color(1,1,1),object_info)
 {
 }
 
 
 void ClickToTitle::Update(){
 	pitching_radian += static_cast<float>(M_1_PI * 0.25f);
-	pos.y() = -96 + 10.0f * std::sinf(pitching_radian);
+	pos.y() = -128 + 10.0f * std::sinf(pitching_radian);
 }
 
 void ClickToTitle::Draw(){

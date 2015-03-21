@@ -11,7 +11,7 @@
 // 
 int main() {
 	AppEnv env(Window::WIDTH, Window::HEIGHT, false, true);
-  SceneManager scene_manager(env,SceneType::RESULT);
+  SceneManager scene_manager(env,SceneType::TITLE);
   while (env.isOpen())
   {
 	  scene_manager.Update();

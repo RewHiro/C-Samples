@@ -2,6 +2,7 @@
 #include "UITime.h"
 #include "Player.h"
 #include "Enemy.h"
+#include <fstream>
 
 Game::Game(AppEnv& app_env):
 Scene(app_env),
@@ -24,6 +25,7 @@ SceneType Game::Update(){
 		object->Update();
 	}
 	if(count_time <= 0){
+		ScoreSava();
 		LoadScene(SceneType::RESULT);
 	}
 
@@ -36,9 +38,32 @@ void Game::Draw(){
 	drawTextureBox(-Window::WIDTH *.5f, -Window::HEIGHT*.5f, bg_texture.width(), bg_texture.height(),
 		0, 0, bg_texture.width(), bg_texture.height(),
 		bg_texture, Color(1, 1, 1));
-
+	PointDraw();
 	for (auto& object : objects){
 		object->Draw();
 	}
+}
 
+void Game::PointDraw(){
+	auto x = 0;
+	auto point_one = point % 10;
+	auto point_ten = point / 10;
+
+	for (int i = 0; i < point_ten; i++){
+		drawTextureBox(x - Window::WIDTH*.5f, -Window::HEIGHT*.5f, 80, 80,
+			0, 0, 80, 80,
+			point_ten_texture, Color(1, 1, 1));
+		x += 15;
+	}
+	for (int i = 0; i < point_one; i++){
+		drawTextureBox(x -Window::WIDTH*.5f, -Window::HEIGHT*.5f, 60, 60,
+			0, 0, 80, 80,
+			point_one_texture, Color(1, 1, 1));
+		x += 15;
+	}
+}
+
+void Game::ScoreSava(){
+	std::ofstream save("res/score.txt");
+	save << point;
 }
