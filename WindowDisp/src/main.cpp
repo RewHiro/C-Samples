@@ -6,6 +6,8 @@
 #include "lib/appEnv.hpp"
 #include "lib\font.hpp"
 
+#include <iostream>
+
 enum Window {
   WIDTH  = 512,
   HEIGHT = 512
@@ -36,6 +38,8 @@ int main() {
   int mp = 0;
   int score = 0;
 
+  bool is_hit = false;
+  Vec2f dis = Vec2f::Zero();
   const Texture texture("res/icon.png");
   int life = 3;
 
@@ -43,10 +47,20 @@ int main() {
 
   while (env.isOpen()) {
 	
-	if(env.isPressButton(Mouse::LEFT)){
+	if(env.isPushButton(Mouse::LEFT)){
 		if(PointToQuad(env.mousePosition(),pos,Vec2f(size,size))){
-			color = Color(1, 0, 0);
+			is_hit = true;
+			dis = env.mousePosition() - pos;
 		}
+	}
+	if(env.isPullButton(Mouse::LEFT)){
+		is_hit = false;
+	}
+
+	if (is_hit){
+		color = Color(1, 0, 0);
+		pos = env.mousePosition() - dis;
+		std::cout << dis << std::endl;
 	}
 	else{
 		color = Color(1, 1, 1);
