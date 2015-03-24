@@ -5,7 +5,8 @@
 #include "lib/defines.hpp"
 #include "lib/appEnv.hpp"
 #include "lib\font.hpp"
-
+#include <sstream>
+#include <iomanip>
 #include <iostream>
 
 enum Window {
@@ -101,11 +102,15 @@ int main() {
 
 	//　MP
 	auto mp_pos = pos + Vec2f(10, size - 80);
-	font.draw("MP: " + std::to_string(mp) + "/100", mp_pos, Color(1, 1, 1));
+	std::ostringstream mp_text;
+	mp_text << std::setw(3) << mp;
+	font.draw("MP: " + mp_text.str() + "/100", mp_pos, Color(1, 1, 1));
     
 	//　SCORE
 	auto score_pos = pos + Vec2f(10, 50);
-	font.draw("SCORE:" + std::to_string(score),score_pos,Color(1,1,1));
+	std::ostringstream score_text;
+	score_text << std::setw(5) << score;
+	font.draw("SCORE:" + score_text.str(), score_pos, Color(1, 1, 1));
 
 	auto icon_pos = pos + Vec2f(10, 10);
 	for (int i = 0; i < life; i++){
