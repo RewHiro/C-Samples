@@ -1,0 +1,33 @@
+[player]
+#テクスチャパス
+texture_path = res/player.png
+#ポジション
+x = 10
+y = -10
+#サイズ
+size_x = 128
+size_y = 128
+#色
+red = 1
+green = 1
+blue = 1
+#移動スピード
+speed_x = 5
+speed_y = 5
+
+[enemy]
+#テクスチャパス
+texture_path = res/enemy.png
+#ポジション
+x = -100
+y = -10
+#サイズ
+size_x = 128
+size_y = 128
+#色
+red = 1
+green = 1
+blue = 1
+#移動スピード
+speed_x = 5
+speed_y = 5

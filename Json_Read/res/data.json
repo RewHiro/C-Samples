@@ -1,0 +1,42 @@
+{
+    "player": {
+        "texture": "res/player.png",
+        "pos": {
+            "x": 10,
+            "y": -10
+        },
+        "size": {
+            "x": 128,
+            "y": 128
+        },
+        "color": {
+            "red": 1,
+            "green": 1,
+            "blue": 1
+        },
+        "speed": {
+            "x": 5,
+            "y": 5
+        }
+    },
+    "enemy" : { 
+        "texture": "res/enemy.png",
+        "pos": {
+            "x": -100,
+            "y": -10
+        },
+        "size": {
+            "x": 128,
+            "y": 128
+        },
+        "color": {
+            "red": 1,
+            "green": 1,
+            "blue": 1
+        },
+        "speed": {
+            "x": 5,
+            "y": 5
+        }
+    }
+}
